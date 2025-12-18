@@ -27,7 +27,7 @@ jobs:
 
     name: Build - ${{ matrix.job.name }}
     runs-on: 
-      - ubuntu-20.04
+      #- ubuntu-20.04
       - self-hosted
     strategy:
       fail-fast: false

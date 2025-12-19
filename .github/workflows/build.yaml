@@ -45,17 +45,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
-
-      - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: "1.88"
-          override: true
-          default: true
-          components: rustfmt
-          profile: minimal
-          target: ${{ matrix.job.target }}
-
+          
       - name: Build with Cross
         # We invoke the binary directly. Since we set ENV PATH in Docker, it just works.
         run: cross build --release --target x86_64-unknown-linux-musl  

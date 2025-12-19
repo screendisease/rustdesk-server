@@ -44,22 +44,10 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: "1.81"
-          override: true
-          default: true
-          components: rustfmt
-          profile: minimal
-          target: ${{ matrix.job.target }}
-
-      - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --all-features --target=${{ matrix.job.target }}
-          use-cross: true  
+      - name: Build with Cross
+        # This will now use the /usr/bin/cross from the Dockerfile
+        # which knows exactly where /usr/bin/cargo is.
+        run: cross build --release --target ${{ matrix.job.target }}
 
       - name: Exec chmod
         run: chmod -v a+x target/${{ matrix.job.target }}/release/*
